@@ -8,7 +8,12 @@
     "song",
     "atom",
     "programming",
-    "package"
+    "package",
+    "audio",
+    "player",
+    "sound",
+    "saavn",
+    "jiosaavn"
   ],
   "activationCommands": {
     "atom-workspace": "jiosaavn:toggle"
