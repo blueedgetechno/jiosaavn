@@ -2,8 +2,14 @@
   "name": "jiosaavn",
   "main": "./lib/jiosaavn",
   "version": "0.1.0",
-  "description": "A short description of your package",
-  "keywords": [],
+  "description": "Listen online music while you code",
+  "keywords": [
+    "music",
+    "song",
+    "atom",
+    "programming",
+    "package"
+  ],
   "activationCommands": {
     "atom-workspace": "jiosaavn:toggle"
   },
