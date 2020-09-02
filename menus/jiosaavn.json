@@ -1,0 +1,26 @@
+{
+  "context-menu": {
+    "atom-text-editor": [
+      {
+        "label": "Toggle jiosaavn",
+        "command": "jiosaavn:toggle"
+      }
+    ]
+  },
+  "menu": [
+    {
+      "label": "Packages",
+      "submenu": [
+        {
+          "label": "jiosaavn",
+          "submenu": [
+            {
+              "label": "Toggle",
+              "command": "jiosaavn:toggle"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
