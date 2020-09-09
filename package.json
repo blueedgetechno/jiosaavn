@@ -1,7 +1,7 @@
 {
   "name": "jiosaavn",
   "main": "./lib/jiosaavn",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "Listen online music while you code",
   "keywords": [
     "music",
