@@ -18,7 +18,7 @@ apm install jiosaavn
 ```
 
 ### Update
-- You can now listen to Offline Music too. Set you music directory in settings and then hover to the top make the offline button appear
+- You can now listen to Offline Music too. Set you music directory in settings and then hover to the top to make the offline button appear
 
 <br>
 
