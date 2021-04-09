@@ -1,28 +1,525 @@
 @import "ui-variables";
+@lightback: #2a2d36;
+@darkback: #21242b;
 
 .jiosaavn {
   margin: 0;
   padding: 2px;
 }
 
-.jiosaavnframe{
-  height: 100vh;
+.jiosaavnIconContainer{
+  display: flex;
+
+  div{
+    &:nth-child(1){
+      margin-right: 3px;
+    }
+
+    &:nth-child(2){
+      margin-left: 3px;
+    }
+  }
 }
 
-.song{
+.displayNone{
+  display: none;
+}
+
+.jiosaavnframe {
+  position: relative;
   width: 100%;
-  height: 92%;
-  border: none;
-  border-radius: 5px;
+
+  *::selection {
+    background: inherit;
+  }
 }
 
-.song::-webkit-scrollbar {
-  width: 5px;
-  background-color: #252930;
+.switchCont{
+  position: absolute;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 12;
+
+  .switchState{
+    background: @darkback;
+    padding: 4px 8px;
+    border-radius: 12px;
+    margin-top: -48px;
+    box-shadow: 4px 4px 12px rgba(19, 19, 31, 0.4);
+    transition: all 200ms ease-in-out;
+    cursor: pointer;
+  }
+
+  &:hover{
+    .switchState{
+      margin-top: 6px;
+    }
+  }
 }
 
-.song::-webkit-scrollbar-thumb {
-  width: 5px;
-  border-radius: 3px;
-  background-color: #257ee2;
+.iframesong{
+  min-height: 90vh;
+}
+
+.emptycont{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .emtitle{
+    font-size: 1.1em;
+    text-align: center;
+    color: #dacfcf;
+    margin: 20px 0 10px 0;
+  }
+
+  .emdesc{
+  }
+}
+
+.saavnapp {
+  width: 100%;
+}
+
+.playlistplay {
+  width: 100%;
+}
+
+.currentsong {
+  position: relative;
+  width: 100%;
+  min-height: 60px;
+  background: @lightback;
+
+  .saavnlogo {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 3;
+    display: block;
+    width: 95px;
+    height: 20px;
+    fill: #fff;
+    transition: opacity 0.3s ease-in-out;
+    cursor: pointer;
+  }
+}
+
+svg {
+  height: 100%;
+  display: block;
+  fill: #fefefe;
+  vertical-align: middle;
+}
+
+.albumsong {
+  width: 100%;
+  padding: 16px;
+
+  .songinfo {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    .songtitle {
+      position: relative;
+      height: 24px;
+      font-size: 1.4em;
+      color: #f1f1f1;
+      overflow-x: hidden;
+      margin-right: 8px;
+      width: 100%;
+
+      span {
+        white-space: nowrap;
+        display: inline-block;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        right: 0;
+        width: 48px;
+        height: 100%;
+        background: linear-gradient(90deg, rgba(255,255,255,0) 0%, @lightback 100%);
+      }
+    }
+
+    .songcover {
+      img {
+        max-width: 70px;
+        max-height: 70px;
+        border-radius: 6px;
+      }
+    }
+  }
+
+  .songprog {
+    width: 100%;
+    margin-top: 8px;
+    padding: 16px 2px 0 2px;
+    position: relative;
+
+    #songprog {
+      -webkit-appearance: none;
+      height: 6px;
+      background: #ffffff;
+      margin-top: -6px;
+      opacity: 0;
+      position: absolute;
+      cursor: pointer;
+
+      &::-ms-tooltip{
+        height: 100%;
+        border-radius: 4px;
+        background: #2bc5b4;
+      }
+
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 10px;
+        height: 10px;
+        background: #fefefe;
+        border-radius: 6px;
+      }
+    }
+
+    .pline {
+      height: 6px;
+      background: #3c404d;
+      border-radius: 4px;
+      position: relative;
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        height: 100%;
+        border-radius: inherit;
+        background: #2bc5b4;
+      }
+    }
+
+    .pball {
+      position: absolute;
+      top: 15px;
+      margin-left: -6px;
+      width: 10px;
+      height: 10px;
+      background: #fefefe;
+      border-radius: 6px;
+    }
+  }
+
+  .progressTime{
+    padding: 4px 2px;
+    font-size: 0.9em;
+    text-align: right;
+  }
+}
+
+.loopingClass (@index) when (@index > 0) {
+  .pline[data-progress="@{index}"] {
+    &::after {
+      width: percentage((@index) *0.01);
+      transition: 0.5s all ease-in-out;
+    }
+  }
+
+  .pball[data-progress="@{index}"] {
+    left: percentage((@index) *0.01);
+    transition: 0.5s all ease-in-out;
+  }
+  .loopingClass(@index - 1);
+}
+.loopingClass(100);
+
+.songcontrol {
+  width: 100%;
+  height: 36px;
+  display: flex;
+  justify-content: space-between;
+  padding: 4px;
+
+  svg {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+  }
+
+  .repeatControl {
+    position: relative;
+
+    svg{
+      transform-origin: center;
+      transform: rotateZ(180deg) scaleX(1.25);
+    }
+  }
+
+  .isRepeat::after{
+    content: "1";
+    position: absolute;
+    left: -6px;
+    top: 8px;
+    width: 10px;
+    height: 10px;
+    font-size: 0.66em;
+    text-align: center;
+    border-radius: 50%;
+    z-index: 4;
+    background: #2bc5b4;
+    color: #fff;
+  }
+
+  .playcontrol {
+    display: flex;
+
+    svg {
+      margin: 0 12px;
+    }
+  }
+
+  .shufflecontrol {
+    svg {
+      transform: scale(1.4);
+
+      &[data-shuff="true"]{
+        fill: #2bc5b4;
+      }
+    }
+  }
+}
+
+.songlist {
+  width: 100%;
+  background: @darkback;
+
+  .songqueue {
+    width: 100%;
+    max-height: 540px;
+    overflow-y: scroll;
+
+    .qsong {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+      align-items: center;
+      cursor: pointer;
+
+      .songoverlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 4;
+      }
+
+      .snum {
+        width: 20px;
+        margin: 0 16px;
+      }
+
+      .playnum {
+        height: 20px;
+        margin-left: 12px;
+      }
+
+      .qsinfo {
+        width: 100%;
+        overflow: hidden;
+
+        .qsname {
+          width: 100%;
+
+          span {
+            display: inline-block;
+            max-width: 100%;
+            white-space: nowrap;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #e3e3e3;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+
+          .playsong {
+            color: #2bc5b4;
+          }
+        }
+
+        .qsdetails {
+          width: 100%;
+
+          span {
+            display: inline-block;
+            max-width: 100%;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+        }
+      }
+
+      .qslength {
+        width: 20px;
+        margin: 0 16px;
+      }
+    }
+  }
+}
+@keyframes frequency {
+  0% {
+    stroke-dashoffset: 13;
+  }
+
+  16% {
+    stroke-dashoffset: 4;
+  }
+
+  32% {
+    stroke-dashoffset: 10;
+  }
+
+  48% {
+    stroke-dashoffset: 9;
+  }
+
+  64% {
+    stroke-dashoffset: 19;
+  }
+
+  80% {
+    stroke-dashoffset: 7;
+  }
+
+  to {
+    stroke-dashoffset: 13;
+  }
+}
+@keyframes resonance {
+  0% {
+    stroke-dashoffset: 0;
+  }
+
+  16% {
+    stroke-dashoffset: 10;
+  }
+
+  32% {
+    stroke-dashoffset: 13;
+  }
+
+  48% {
+    stroke-dashoffset: 5;
+  }
+
+  64% {
+    stroke-dashoffset: 15;
+  }
+
+  80% {
+    stroke-dashoffset: 13;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@-webkit-keyframes gain {
+  0% {
+    stroke-dashoffset: 9;
+  }
+
+  16% {
+    stroke-dashoffset: 14;
+  }
+
+  32% {
+    stroke-dashoffset: 8;
+  }
+
+  48% {
+    stroke-dashoffset: 13;
+  }
+
+  64% {
+    stroke-dashoffset: 4;
+  }
+
+  80% {
+    stroke-dashoffset: 17;
+  }
+
+  to {
+    stroke-dashoffset: 9;
+  }
+}
+@keyframes slope {
+  0% {
+    stroke-dashoffset: 16;
+  }
+
+  16% {
+    stroke-dashoffset: 6;
+  }
+
+  32% {
+    stroke-dashoffset: 18;
+  }
+
+  48% {
+    stroke-dashoffset: 8;
+  }
+
+  64% {
+    stroke-dashoffset: 10;
+  }
+
+  80% {
+    stroke-dashoffset: 4;
+  }
+
+  to {
+    stroke-dashoffset: 16;
+  }
+}
+
+.equalizer {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.equalizer line {
+  stroke-dasharray: 20;
+}
+
+.equalizer line:first-of-type {
+  -webkit-animation: frequency 1s linear infinite;
+  animation: frequency 1s linear infinite;
+}
+
+.equalizer line:nth-of-type(2) {
+  -webkit-animation: resonance 1s linear infinite;
+  animation: resonance 1s linear infinite;
+}
+
+.equalizer line:nth-of-type(3) {
+  -webkit-animation: gain 1s linear infinite;
+  animation: gain 1s linear infinite;
+}
+
+.equalizer line:nth-of-type(4) {
+  -webkit-animation: slope 1s linear infinite;
+  animation: slope 1s linear infinite;
+}
+
+.equalizer.equalizer--pause line {
+  -webkit-animation-play-state: paused!important;
+  animation-play-state: paused!important;
 }

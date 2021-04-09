@@ -6,24 +6,20 @@
 [![Follow me](https://img.shields.io/github/followers/blueedgetechno?label=follow%20me&style=social)](https://github.com/blueedgetechno)
 
 ## Unofficial JioSaavn package for atom
----
-
-Update : JioSaavn disabled iframe for the website :( , you will only listen limited songs
-
----
 
 <br>
 
-Listen your favorite music while coding in your favorite text editor - Life can't be get more easy
+Listen to your favorite music while coding in your favorite text editor - Life can't get any more easier
 
-<br>
 
+### Installation
 ```
 apm install jiosaavn
 ```
 
-<br>
+### Update
+- You can now listen to Offline Music too. Set you music directory in settings and then hover to the top make the offline button appear
 
-*this is picture before the disable
+<br>
 
 ![overview](https://raw.githubusercontent.com/blueedgetechno/jiosaavn/master/img/music.png)

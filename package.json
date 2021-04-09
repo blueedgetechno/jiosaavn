@@ -2,9 +2,10 @@
   "name": "jiosaavn",
   "main": "./lib/jiosaavn",
   "version": "1.0.0",
-  "description": "Listen online music while you code",
+  "description": "Listen online/offline music while you code",
   "keywords": [
     "music",
+    "offline",
     "song",
     "atom",
     "programming",
@@ -18,6 +19,9 @@
   "activationCommands": {
     "atom-workspace": "jiosaavn:toggle"
   },
+  "bugs": {
+    "url": "https://github.com/blueedgetechno/jiosaavn/issues"
+  },
   "repository": "https://github.com/blueedgetechno/jiosaavn",
   "license": "MIT",
   "engines": {
@@ -30,5 +34,12 @@
       }
     }
   },
-  "dependencies": {}
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "jsmediatags": "^3.9.5",
+    "path": "^0.12.7",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "homepage": "https://github.com/blueedgetechno/jiosaavn#readme"
 }
